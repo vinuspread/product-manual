@@ -4,11 +4,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Modern Docs Portal</title>
+  <link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
+  <div class="mobile-header">
+    <button id="mobileMenuBtn" class="toc-toggle">☰</button>
+    <div class="mobile-logo">Documentation</div>
+  </div>
 
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h1 class="logo">DOCS</h1>
+        <div class="language-select-wrapper">
+          <select id="langSelect">
+            <option value="ko">한국어 (KO)</option>
+            <option value="en">English (EN)</option>
+          </select>
+        </div>
+      </div>
+      <nav class="toc">
+        <ul id="menu"></ul>
+      </nav>
+    </aside>
+
+    <main class="content" id="content">
+      <article class="content-inner">
+        <div class="loading">문서를 불러오는 중...</div>
+      </article>
+    </main>
+
+    <div class="sidebar-overlay" id="overlay"></div>
+  </div>
+
+  <div class="search-container" id="searchBox">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search" placeholder="문서 검색 (Ctrl + K)">
+      <span id="count">0 / 0</span>
+    </div>
+  </div>
+
+  <script type="module" src="./index.js"></script>
 </body>
 
 </html>
