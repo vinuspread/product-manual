@@ -4,50 +4,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Docs Portal</title>
+  <title>Manual</title>
   <link rel="stylesheet" href="./index.css">
+  <script type="module" src="./index.js"></script>
+  <style>
+    /* 
+    임시로 넣은 Reset입니다.
+    개발붙일때 삭제해주시고.
+    AS-IS Reset CSS 사용해주세요.
+    */
+
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="mobile-header">
-    <button id="mobileMenuBtn" class="toc-toggle">☰</button>
-    <div class="mobile-logo">Documentation</div>
-  </div>
-
-  <div class="layout">
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <h1 class="logo">DOCS</h1>
-        <div class="language-select-wrapper">
-          <select id="langSelect">
-            <option value="ko">한국어 (KO)</option>
-            <option value="en">English (EN)</option>
-          </select>
+  <div class="manual">
+    <div class="mobile-header">
+      <button id="mobileMenuBtn" class="toc-toggle">☰</button>
+      <div class="mobile-logo">Manual Docs</div>
+    </div>
+    <div class="layout">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <h1 class="logo">Manual Docs</h1>
+          <div class="language-select-wrapper">
+            <select id="langSelect">
+              <option value="ko">한국어 (KO)</option>
+              <option value="en">English (EN)</option>
+            </select>
+          </div>
         </div>
+        <nav class="toc">
+          <ul id="menu"></ul>
+        </nav>
+      </aside>
+      <main class="content" id="content">
+        <article class="content-inner">
+        </article>
+      </main>
+      <div class="sidebar-overlay" id="overlay"></div>
+    </div>
+    <div class="search-container" id="searchBox">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search" placeholder="찾으시는 내용을 입력하세요 / Ctrl + K">
+        <span id="count">0 / 0</span>
       </div>
-      <nav class="toc">
-        <ul id="menu"></ul>
-      </nav>
-    </aside>
-
-    <main class="content" id="content">
-      <article class="content-inner">
-        <div class="loading">문서를 불러오는 중...</div>
-      </article>
-    </main>
-
-    <div class="sidebar-overlay" id="overlay"></div>
-  </div>
-
-  <div class="search-container" id="searchBox">
-    <div class="search-box">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="search" placeholder="문서 검색 (Ctrl + K)">
-      <span id="count">0 / 0</span>
     </div>
   </div>
 
-  <script type="module" src="./index.js"></script>
 </body>
 
 </html>

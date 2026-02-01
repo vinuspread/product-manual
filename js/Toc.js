@@ -1,182 +1,112 @@
-// toc.js
 export function initTOC({
   contentSelector,
   menuSelector,
-  headingSelector = "h1, h2, h3, h4, h5, h6",
   activeClass = "active",
   collapsedClass = "collapsed",
 }) {
-  const content = document.querySelector(contentSelector);
+  const content = document.querySelector("#content"); // 실제 스크롤 주체
   const menu = document.querySelector(menuSelector);
-  const headings = Array.from(content.querySelectorAll(headingSelector));
+  const headings = Array.from(
+    document.querySelectorAll(
+      `${contentSelector} h1, ${contentSelector} h2, ${contentSelector} h3, ${contentSelector} h4, ${contentSelector} h5, ${contentSelector} h6`,
+    ),
+  );
+
+  if (!headings.length) return;
 
   const items = [];
   let isClickScrolling = false;
 
-  // 1. 현재 문서에서 가장 상위 레벨(가장 작은 숫자) 찾기
-  // 예: h2, h3만 있다면 minDepth는 2가 됨.
-  const minDepth = headings.reduce((min, h) => {
-    const depth = Number(h.tagName.replace("H", ""));
-    return depth < min ? depth : min;
-  }, 999);
+  const minDepth = Math.min(...headings.map((h) => Number(h.tagName[1])));
+  menu.innerHTML = "";
 
-  /* ------------------------------
-     메뉴 생성
-  ------------------------------ */
   headings.forEach((heading, index) => {
-    const depth = Number(heading.tagName.replace("H", ""));
-    const id = heading.id || `section-${index}`;
+    const depth = Number(heading.tagName[1]);
+    const id = `section-${langSelect.value}-${index}`; // 언어별 ID 중복 방지
     heading.id = id;
 
     const li = document.createElement("li");
     li.textContent = heading.textContent;
-    li.dataset.target = id;
-    li.dataset.depth = depth;
-    li.classList.add(`depth-${depth}`);
-
-    // 최상위 레벨인 경우 포인터 커서나 스타일 처리를 위해 클래스 추가 (선택사항)
-    if (depth === minDepth) {
-      li.classList.add("toc-root-item");
-      li.style.cursor = "pointer"; // 클릭 가능하다는 표시
-    }
+    li.className = `depth-${depth}`;
+    if (depth === minDepth) li.classList.add("toc-root-item");
 
     li.addEventListener("click", (e) => {
       e.stopPropagation();
+      const hasChildren =
+        headings[index + 1] && Number(headings[index + 1].tagName[1]) > depth;
 
-      // 1. 현재 항목의 하위 자식이 있는지 확인
-      // items 배열에서 내 바로 다음 항목이 나보다 깊은(숫자가 큰) depth인지 체크
-      const hasChildren = items[index + 1] && items[index + 1].depth > depth;
-
-      // 2. 최상위 레벨이면서 자식이 있는 경우에만 접기/펼치기 수행
       if (depth === minDepth && hasChildren) {
         li.classList.toggle(collapsedClass);
-        const isCollapsed = li.classList.contains(collapsedClass);
-
-        toggleGroupVisibility(index, depth, isCollapsed);
-        return; // 스크롤 이동 안 함
-      }
-
-      // --- 3. 자식이 없거나 하위 레벨인 경우: 스크롤 이동 실행 ---
-      const targetEl = document.getElementById(id);
-      if (!targetEl) return;
-
-      // 이미 상단에 있다면 중복 스크롤 방지 (이전 답변 로직)
-      const rect = targetEl.getBoundingClientRect();
-      if (Math.abs(rect.top) < 20) {
-        items.forEach((i) => i.li.classList.remove(activeClass));
-        li.classList.add(activeClass);
+        toggleGroupVisibility(
+          index,
+          depth,
+          li.classList.contains(collapsedClass),
+        );
         return;
       }
 
-      // Active 처리 및 스크롤
       items.forEach((i) => i.li.classList.remove(activeClass));
       li.classList.add(activeClass);
-
       isClickScrolling = true;
-      targetEl.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
 
-      history.replaceState(null, "", `#${id}`);
+      // content 컨테이너 기준 상대 위치 계산
+      const offset = 80;
+      const targetPos = heading.offsetTop - offset;
 
+      content.scrollTo({ top: targetPos, behavior: "smooth" });
       setTimeout(() => {
         isClickScrolling = false;
-      }, 400);
+      }, 800);
     });
 
     menu.appendChild(li);
     items.push({ heading, li, depth });
   });
 
-  /* ------------------------------
-     스크롤 기반 active
-  ------------------------------ */
+  /* Intersection Observer 핵심 교정 */
   const observer = new IntersectionObserver(
     (entries) => {
       if (isClickScrolling) return;
 
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-
-        // 기존 active 제거
+      // 상단에서 아래로 내려올 때 가장 먼저 걸리는 항목 찾기
+      const visible = entries.find((e) => e.isIntersecting);
+      if (visible) {
         items.forEach((i) => i.li.classList.remove(activeClass));
-
-        const current = items.find((i) => i.heading === entry.target);
-
-        if (current) {
-          current.li.classList.add(activeClass);
-
-          // 스크롤로 하위 항목에 도달했을 때 부모가 닫혀있다면 열어주는 로직 (선택사항)
-          // 필요 없다면 expandParents 관련 부분은 제거해도 됩니다.
-          expandParents(current);
+        const activeItem = items.find((i) => i.heading === visible.target);
+        if (activeItem) {
+          activeItem.li.classList.add(activeClass);
+          expandParents(activeItem);
         }
-      });
+      }
     },
     {
-      root: null, // content 내부 스크롤이 아니라면 null(뷰포트 기준)이 더 정확할 수 있음
-      rootMargin: "-40% 0px -55% 0px",
+      root: content,
+      rootMargin: "-10% 0px -80% 0px", // 화면 상단 10% 지점 감지
       threshold: 0,
     },
   );
 
   headings.forEach((h) => observer.observe(h));
 
-  /* ------------------------------
-     부모 depth 자동 펼침 (스크롤 시)
-  ------------------------------ */
+  function toggleGroupVisibility(idx, d, hide) {
+    for (let i = idx + 1; i < items.length; i++) {
+      if (items[i].depth <= d) break;
+      items[i].li.style.display = hide ? "none" : "";
+    }
+  }
+
   function expandParents(currentItem) {
-    // 역순으로 탐색하여 부모(상위 depth)를 찾아 펼침
     const currentIndex = items.indexOf(currentItem);
     const currentDepth = currentItem.depth;
-
-    // 현재 아이템보다 위에 있는 리스트들을 거꾸로 탐색
     for (let i = currentIndex - 1; i >= 0; i--) {
       const target = items[i];
-
-      // 내 바로 위의 상위 depth를 찾음
       if (target.depth < currentDepth) {
-        // 닫혀있다면 열기
         if (target.li.classList.contains(collapsedClass)) {
           target.li.classList.remove(collapsedClass);
-
-          // 해당 부모의 자식들을 다시 보여줌 (단순 display="" 처리만 하면 하위의 하위까지 다 열릴 수 있으므로 주의)
-          // 여기서는 단순하게 해당 부모의 직계 자식들을 보여주도록 처리 필요하나,
-          // 로직 단순화를 위해 해당 그룹 전체를 다시 보이게 처리
           toggleGroupVisibility(i, target.depth, false);
         }
-
-        // 최상위까지 도달했다면 종료 (또는 계속 위로 탐색)
         if (target.depth === minDepth) break;
       }
     }
-  }
-
-  // 특정 인덱스(부모)의 하위 그룹 가시성 제어 헬퍼 함수
-  function toggleGroupVisibility(parentIndex, parentDepth, hide) {
-    for (let k = parentIndex + 1; k < items.length; k++) {
-      if (items[k].depth <= parentDepth) break;
-      items[k].li.style.display = hide ? "none" : "";
-    }
-  }
-
-  /* ------------------------------
-     초기 hash
-  ------------------------------ */
-  if (location.hash) {
-    const target = document.querySelector(location.hash);
-    if (target) {
-      // 해시 이동 시 해당 섹션의 부모가 닫혀있을 수 있으므로 열어주는 로직 필요할 수 있음
-      const targetItem = items.find((i) => i.heading === target);
-      if (targetItem) expandParents(targetItem);
-      target.scrollIntoView();
-    }
-  }
-
-  document.querySelector(".toc-toggle").addEventListener("click", () => {
-    document.body.classList.toggle("toc-open");
-  });
-  if (window.innerWidth < 768) {
-    document.body.classList.remove("toc-open");
   }
 }

@@ -1,24 +1,25 @@
-import { loadContent } from "./js/loadContent.js";
-import { initTOC } from "./js/toc.js";
+import { initTOC } from "./js/Toc.js";
 import { initSearch } from "./js/Search.js";
+import { loadContent } from "./js/loadContent.js";
 import { Responsive } from "./js/Responsive.js";
 
-const langSelect = document.getElementById("langSelect");
+// TOC 초기화 함수를 정의 (재사용을 위해)
+const refreshTOC = () => {
+  initTOC({
+    contentSelector: ".content-inner",
+    menuSelector: "#menu",
+  });
+};
 
-// 1. 검색 기능 먼저 초기화하여 매니저 객체 확보
 const searchManager = initSearch({
   contentSelector: ".content-inner",
   inputSelector: "#search",
   countSelector: "#count",
+  onReset: refreshTOC, // ★ 리셋될 때마다 TOC 다시 그리기
 });
 
-// 2. 초기 로드 (매니저 전달)
-loadContent("ko", initTOC, searchManager);
-
-// 3. 언어 변경 이벤트
-langSelect.addEventListener("change", (e) => {
-  loadContent(e.target.value, initTOC, searchManager);
-});
-
-// 4. 반응형 기능 실행
+// 초기 로드 및 언어 변경 시 searchManager 전달은 기존과 동일
+const runLoad = (lang) => loadContent(lang, initTOC, searchManager);
+langSelect.addEventListener("change", (e) => runLoad(e.target.value));
+runLoad("ko");
 Responsive();
