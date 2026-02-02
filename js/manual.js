@@ -1,7 +1,7 @@
-import { initTOC } from "./js/Toc.js";
-import { initSearch } from "./js/Search.js";
-import { loadContent } from "./js/loadContent.js";
-import { Responsive } from "./js/Responsive.js";
+import { initTOC } from "./Toc.js";
+import { initSearch } from "./Search.js";
+import { loadContent } from "./loadContent.js";
+import { Responsive } from "./Responsive.js";
 
 // TOC 초기화 함수를 정의 (재사용을 위해)
 const refreshTOC = () => {

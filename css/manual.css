@@ -97,8 +97,6 @@
 
         &.depth-2 {
           color: var(--text-main);
-          &.collapsed {
-          }
         }
         &.depth-3 {
           margin-left: 12px;
