@@ -1,4 +1,7 @@
-<h2>중요 안전 지침</h2>
+// js/docsData.js
+export const docsData = {
+  ko: `
+    <h2>중요 안전 지침</h2>
 <ol>
   <li>이 지침을 읽으십시오.</li>
   <li>이 지침을 보관하십시오.</li>
@@ -151,3 +154,174 @@
   <li>카메라 렌즈의 모양은 모델명에 따라 다를 수 있습니다.</li>
   <li>제품 설치 시 최소 M4, L30 이상의 설치 나사를 사용하십시오.</li>
 </ul>
+  `,
+  en: `
+    <h2>Important Safety Instructions</h2>
+<ol>
+  <li>Read these instructions.</li>
+  <li>Keep these instructions.</li>
+  <li>Heed all warnings.</li>
+  <li>Follow all instructions.</li>
+  <li>Do not use this apparatus near water.</li>
+  <li>Clean the contaminated area on the product surface with a soft, dry cloth or a damp cloth. (Do not use a detergent
+    or cosmetic products that contain alcohol, solvents or surfactants or oil constituents as they may deform or cause
+    damage to the product.)</li>
+  <li>Do not block any ventilation openings, Install in accordance with the manufacturer’s instructions.</li>
+  <li>Do not install near any heat sources such as radiators, heat registers, stoves, or other apparatus (including
+    amplifiers) that produce heat.</li>
+  <li>Do not defeat the safety purpose of the polarized or grounding-type plug. A polarized plug has two blades with one
+    wider than the other. A grounding type plug has two blades and a third grounding prong. The wide blade or the third
+    prong are provided for your safety. If the provided plug does not fit into your outlet, consult an electrician for
+    replacement of the obsolete outlet.</li>
+  <li>Protect the power cord from being walked on or pinched particularly at plugs, convenience receptacles, and the
+    point where they exit from the apparatus.</li>
+  <li>Only use attachments/ accessories specified by the manufacturer.</li>
+  <li>Use only with the cart, stand, tripod, bracket, or table specified by the manufacturer, or sold with the
+    apparatus. When a cart is used, use caution when moving the cart/apparatus combination to avoid injury from
+    tip-over.</li>
+  <li>Unplug this apparatus during lighting storms or when unused for long periods of time.</li>
+  <li>Refer all servicing to qualified service personnel. Servicing is required when the apparatus has been damaged in
+    any way, such as power-supply cord or plug is damaged, liquid has been spilled or objects have fallen into the
+    apparatus, the apparatus has been exposed to rain or moisture, does not operate normally, or has been dropped.</li>
+  <li>This product is intended to be supplied by a UL Listed Power Supply Unit marked “Class 2” or “LPS” or “PS2” and
+    rated from PoE (48Vdc), 0.23A. (XNV-A9084RS)</li>
+  <li>This product is intended to be supplied by a UL Listed Power Supply Unit marked “Class 2” or “LPS” or “PS2” and
+    rated from PoE (48Vdc), 0.2A. (XNV-A8084RS)</li>
+  <li>This product is intended to be supplied by isolation power.</li>
+  <li>If you use excessive force when installing the product, the camera may be damaged and malfunction.</li>
+  <li>Do not install the product in a place where chemical substances or oil mist exists or may be generated.</li>
+  <li>When installing the product, be careful not to allow the surface of the product to be stained with chemical
+    substance.</li>
+  <li>If you install/disassemble the product in a manner that has not been recommended, the production
+    functions/performance may not be guaranteed.</li>
+  <li>Installing or using the product in water can cause serious damage to the product.</li>
+  <li>Although a rapid change in temperature could cause frost inside the dome, there will be no problem with the video.
+  </li>
+  <li>This device has been verified using STP cable. The use of appropriate GND grounding and STP cable is recommended.
+  </li>
+  <li>The operating temperature for the XNV-A9084RS/XNV-A8084RS products is -40°C to +50°C(-40°F to +122°F).</li>
+</ol>
+
+<h3>WARNING / CAUTION</h3>
+<table class="type2">
+  <tbody>
+    <tr>
+      <td><img src="./images/1.png" alt="Lightning Bolt Symbol"></td>
+      <td>
+        <h3>CAUTION</h3>
+        <p>RISK OF ELECTRIC SHOCK.<br>DO NOT OPEN</p>
+      </td>
+      <td><img src="./images/2.png" alt="Exclamation Symbol"></td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <p>CAUTION: TO REDUCE THE RISK OF ELECTRIC SHOCK, DO NOT REMOVE COVER. NO USER SERVICEABLE PARTS INSIDE. REFER
+          SERVICING TO QUALIFIED SERVICE PERSONNEL.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>EXPLANATION OF GRAPHICAL SYMBOLS</h3>
+<ul>
+  <li>Lightning flash: Alert the user to “dangerous voltage”.</li>
+  <li>Exclamation point: Alert the user to important operating and maintenance instructions.</li>
+</ul>
+
+<h3>Battery and Power Safety</h3>
+<p>Batteries shall not be exposed to excessive heat. The battery cannot be replaced.</p>
+<h4>Prohibition of battery abuse:</h4>
+<ul>
+  <li>Do not install wrong type of battery.</li>
+  <li>Do not mechanically crush or cut.</li>
+  <li>Do not leave in high temperature or low-pressure environment.</li>
+</ul>
+
+<h2>Recommended Specifications</h2>
+
+<h3>Recommended PC Specifications</h3>
+<ul>
+  <li>CPU: Intel(R) Core(TM) i7 3.4 GHz or higher</li>
+  <li>RAM: 8G or higher</li>
+  <li>Recommended browser: Chrome</li>
+  <li>Supported OS: Windows, Mac, Linux, Android, iOS, Chrome</li>
+</ul>
+
+<h3>Recommended Micro SD Card Specifications</h3>
+<ul>
+  <li>Hanwha Vision Memory Card: SPP-E128G, SPP-E256G, SPP-E512G, SPP-E10T</li>
+  <li>Recommended capacity: 16 GB ~ 1 TB (MLC type recommended)</li>
+</ul>
+
+<h3>NAS Recommended Specs</h3>
+<ul>
+  <li>Recommended capacity: 200GB or higher.</li>
+  <li>Recommended manufacturers: QNAP NAS, Synology NAS</li>
+</ul>
+
+<h2>Optional Accessories for Installation</h2>
+<table class="type1">
+  <thead>
+    <tr>
+      <th>Model name</th>
+      <th>Wall Mount and Pole Mount</th>
+      <th>Hanging Mount</th>
+      <th>Corner Mount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        XNV-A9084RS<br>
+        XNV-A8084RS
+      </td>
+      <td>
+        <div class="grid">
+          <div>
+            <img src="images/SBP-300WMS.png" alt="SBP-300WMS">
+            <p>SBP-300WMS<br>(Wall Mount)</p>
+          </div>
+          <div>
+            <img src="images/SBP-300WMS1.png" alt="SBP-300WMS1">
+            <p>SBP-300WMS1<br>(Wall Mount)</p>
+          </div>
+          <div>
+            <img src="images/SBP-300PMS.png" alt="SBP-300PMS">
+            <p>SBP-300PMS<br>(Pole Mount)</p>
+          </div>
+        </div>
+      </td>
+      <td>
+        <img src="images/SBP-300PMS.png" alt="Pole Mount">
+        <p>SBP-180HMS</p>
+      </td>
+
+      <td>
+        <img src="images/SBP-300KMS.png" alt="SBP-300KMS">
+        <p>SBP-300KMS</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>installation &amp; connection</h2>
+<h3>What's Included</h3>
+<table>
+  <tbody>
+    <tr>
+      <td colspan="3"><img src="images/XNV-AX084RS.png" alt="Main Components"></td>
+    </tr>
+    <tr>
+      <td><img src="images/XNV-AX084RS1.png" alt="Component 1"></td>
+      <td><img src="images/XNV-6081Z-QG.png" alt="Component 2"></td>
+      <td><img src="images/XNF-A9014RV.png" alt="Cables"></td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>The shape of the camera lens may differ depending on the model names.</li>
+  <li>Use installation screws of at least M4, L30.</li>
+</ul>
+  `,
+};
